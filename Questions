@@ -1,0 +1,853 @@
+Intro
+
+"I'm Prabhu, a Lead Software Engineer at Persistent Systems with over 4 years of hands-on DevOps experience.
+ My core focus has been CI/CD automation, container orchestration, and infrastructure as code — 
+ I work extensively with Jenkins, Docker, Kubernetes, and OpenShift, and I automate infrastructure provisioning using Terraform and Ansible.
+Currently, on the IBM Cloud and Security project, I manage OpenShift cluster deployments end-to-end — from provisioning clusters and deploying Kubernetes manifests, to setting up Jenkins pipelines, integrating JFrog Artifactory for artifact and image management, and automating backups using AWS S3. 
+I've also worked with Red Hat DevSpaces for cloud-native development workflows.
+Before this, on IBM Netezza, I built Terraform automation for AWS infrastructure — EC2, VPC, IAM, RDS — and worked on CI/CD pipeline automation and container image promotion across registries.
+I'm looking to bring this experience into a role like this one at BNP Paribas, where I can apply my Kubernetes/OpenShift and Terraform background at enterprise scale in a regulated environment."
+
+
+
+How to find a exit status log of last run shell script (not vm commands - history)
+How to copy a file from one machine to another (scp cmd)
+How to upgrade particular version of an application in /opt folder (git 1.32)
+If you have git.tar how will you install from that
+ How to add a node inside Jenkins UI
+Is there any prerequisits needed before adding node to jenkins
+Is there anything needs to be installed on the attaching node?
+How to add credentials in jenkins
+Tell me 3 different credentials types
+How to use credentials inside pipeline - syntax
+What is plugins and how do you used inside your pipeline
+What are the basic stages of Deployment declarative pipline
+Have you configured an artifacts
+What are the different repos on jfrog
+What is maven
+What difference build tools you used
+What are different artifacts used
+What is sonarqube and PDM and other code validation tools
+
+Have you worked with source code
+How to build an application and deploy (only docker not kubernetes)
+What are the stages
+Pipeline stages (including secOps)
+Writre a declarative pipeline job to build and publish and application (without docker and kubernetes)
+How to add users/roles/groups in jenkins (how to manage)
+Have you used any plugins? 
+Write a pipeline stage to build docker image and publish 
+How will you deploy application in your project? What are it's stages
+What are soft links?
+
+Shell script
+Git diff and branch strategies
+
+Have you worked on any cloud technology?
+
+Complete stages of application lifecycle validate code, build, compile, store, deploy including monitoring and etc
+
+Tell about yourself, detailing on which all cloud worked, what type of environments you worked with overall experience you have
+Have you worked on S3?, how to check who has created bucket if there are any bucket or created logs
+If we have multiple instance created, where to see the all activity performed on it
+Where all aws logs will be stored?, lets's say if EC2 instance created and s3 created where we can see those activities. If cloud watch where in it?
+Have you worked on Terraform
+If we want to create a Terraform modules, you know modules right?, what all things(attributes) needs to mention, in order to make that be reusable by other places
+Have you worked on ansible?
+What Git branching strategy, and how you will follow to commit for each stage? And how will you commit, build, push and monitor code using each branch
+How you will scale the worker nodes?
+Have you used auto scaling, how will you scale resources(worker nodes)
+Which load balancer you used
+Diff bw Application load balancer and Network load balancer
+Explain which all services used in AWS like VPC private public, subnet, tc
+How to see the logs of an particular activity, where all logs will be stored on aws
+On which cluster type you worked, is it Multi cloud infra or single cloud
+Have you worked on different clouds
+Have you created any Ingress resources, what ingress controller you created
+How a traffic will be moving or how communication happens in cluster with all ingress/egress services
+Will you use/build single docker image across all environment or multiple for each stage
+What are the changes with respect to each stages branch(dev, qa and prod) on git repo
+Tell me the CICD workflow that you built in your project
+How you will improve performance of a Jenkins job
+If a conflict happened on cicd, how you will resolve
+What is du command
+What is df command
+What is difference between cmd and entrypoint in docker
+How port mapping helpful/purpose in docker
+Write a palindrome program in any scripting language (programming/scripting) 
+What is difference between Security Group and NACL
+
+
+
+coverself
+------------------
+Introduce yourself and explain your day to day activities
+what are terraform lifecyle policies, dont want terraform steps - init, validate apply etc
+what is (tf.heml) (or some help related file) file
+what is helm
+have you worked on azure?
+what is s3, what do we use, what kind of data will store, can we store dynamic data ?, how do you configure for dynamic data storage	
+what kind of data you will store on s3
+what is VPC and How you will install python application on private subnet. (don't want normal basic answer)
+Did you worked on Gitops (Gitops is different than Github actions)
+what are the storage classes in S3 and if we want to store 2 years back data on s3 which storage class you need to use
+How do you connect 
+
+did you really worked on SRE? used SRE Practices?
+
+
+BCT - BNP Paribas
+-----------------------------------
+Introduce Yourself
+what all the resources you will provision through terraform. > VPC provision is not Devops Engineer role
+How do you enable delete on termination of EC2 instance, what is the statement you will write and where do you keep, within resouce block? what is the data type of that and is by default enabled or not?
+Let say you have 200 EC2 machine and if you want to connect with that with .pem file how you will deploy that .pem file, will you deploy that file for whole 200 server
+How do you manage terraform manifest, (not where you execute, not where you store, i guess where you configure it to automate(git) )
+If we want to upgrade the provider to a different version, the statefile won't allow right, so how do you upgrade on the command line
+
+
+Please correlate your infra with terraform
+check statefile about your infra
+
+How find an file which is created 15 days ago and don't know where we kept and also many around 200 users were logging in, so how do you find
+
+Take me through the kubernetes components 
+Is kubernetes is pull based or push based mechnism and what if something need to upgrade/configure how it happens(it is pull based, api server won't go and check with all other components, instead all components will continuosly go and check is there any new change/thing came)
+How pod is being created in your infra, walk me through the lifeccle 
+what is kubectl, why it is needed
+
+lets consider we have an different version of Java application and how do you choose maven for the same, how the hierarchy in the pipeline(not the steps where you create on pipleline or not commands)
+
+What if allocated CIDR range IP's are used no Ip's left to create, but if i want to create resource on same VPC, how do we do that?
+
+
+
+Interview invitation for Cloud Infrastructure Engineer at Bounteous India
+----------------------------------------------------------------------------------
+ 
+1.Introduce yourself
+2.What are your jenkins CICD pipeline stages and how do you manager secretes
+3.Are you worked on on-premise kubernetes cluster or cloud clutser
+4.How do you ensure you're deploying/pulling an application/image on right cluster from registry on jenkins pipeline (not from Deployment yaml file)
+5.What are network policies on Kubernetes
+6.what are the different services on Kubernetes
+7.Consider if Pod failing due to crashloop Backup, how do you troubleshoot that?
+8.Difference between ImagePullBackoff and CrashLoopBackoff
+9.What are the services you worked on AWS
+10. What is node affinity and if we want an node 
+Consider you are upgrading an node, you cordened an node and how do you ensure application being available (corderned an node but still it needs to serve an request)
+As you are using an Load balancer on Kubernetes, everytime request flow through that and it associate an cost, so how do you reduce an cost of Load balancer (There is an Kuebernetes service for that)
+What is livelyness and readness probe and what happens when those are fail 
+
+How do you ensure least privilage on Kuberetes cluster / How do you manager users and roles on Kubernetes cliuster and how would you ensure access to a particulat user / KLubernets user management / Kubernetes RBAC
+
+Condier you have 2 AWS account and which is in different regions how do you establish connection bw them to pass the requests/communications happens 
+How do you enable VPC peering and end to end process
+
+
+Have you worked on terraform?, what all env you provisioned
+What are different terraform lifecycle policies and explain 
+Explain the complete lifecycle flow in terraform
+There is one more step apart from init, format/fmt, validate, plan, apply and destroy
+
+
+What all Adhock commands you will use day to day (Hope its ansible)
+
+Explain the 
+
+Have you worked on Observability/SRE
+what are the data exporter available on Prometheus and how you will configure Dashboard
+
+Write a command to find an logfile which is more than 5GB of size and created 2 days before
+How do you find an openfiles
+What are openfiles
+How you will stop custom service on linux not system service(systemctl)
+What is diff between SIGTERM and SIGKILL
+
+How good you're on Python and Linux
+Did you worked on Automation? In which lanaguege you worked on automation
+
+Feedback
+---------------
+Need to understand and work on CICD stages corrrectly
+Need to work on Kuerbentes(Complete flow, what all resources needed such as n/w stoarge etc (full flow)
+You must understand observability platform, understand core concept on opensource tools, so that you can easily adapt to vendor managed tools
+We need candiate who worked more on Automation, Python Automatin
+Also Understand Linux commands correctly
+
+Experince
+--------------
+Low confidence, low voice, unconfident Body Language
+Not a properflow while explaining, using a lot filler words (aa, hmm, so etc)
+Expection from Inetrviewer is not about one tool and technology, they needs all 
+		1. Develop
+		2. Build
+		3. Test
+		4. Deploy
+		5. create Infrastructure
+		6. troubleshoot
+		7. Monitor
+
+Need to pick a technology build/create and understand what all it needed actually in order to build that, even basic things
+Complete concept
+Scenario, Troubleshooting, situation questions
+
+
+---------------------------------------------------------- Answers--------------------------------------------------------
+	
+Q2a. "What are your Jenkins CI/CD pipeline stages?"
+
+Say it in this order, in about 60 seconds:
+
+"Our pipeline is a declarative Jenkinsfile triggered by a webhook on commit or PR. The stages are:
+
+Checkout: pull code from Git (Multibranch pipeline, so each branch and PR gets its own run).
+Build: compile and package with Maven, Gradle or npm.
+Unit tests: publish test reports and fail fast on failures.
+Code quality: SonarQube analysis with a quality gate that blocks the pipeline if it fails.
+Security scans: dependency scanning and secret scanning on the code.
+Docker build: build the image, tagged with the build number or commit SHA (never just latest).
+Image scan: Trivy or the registry scanner, failing on critical vulnerabilities.
+Push: to ECR, Nexus or Artifactory.
+Deploy to dev/QA: via Helm, kubectl or oc on Kubernetes/OpenShift.
+Integration and smoke tests: verify the deployment is healthy.
+Approval: a manual input gate for production.
+Deploy to prod: rolling update, then a health check, with automatic rollback if it fails.
+Post actions: Slack or email notification, workspace cleanup, and archiving artifacts."
+
+Then add one sentence about your setup: "In my project the main difference is [e.g. we use OpenShift, or GitOps handles the final deploy]." Match the stages to what you actually use, and drop any you don't.
+
+Skeleton to keep in your head: 
+ 
+ pipeline {
+  agent { label 'docker' }
+  environment { IMAGE = "myrepo/app:${env.GIT_COMMIT[0..6]}" }
+  stages {
+    stage('Checkout')  { steps { checkout scm } }
+    stage('Build')     { steps { sh 'mvn clean package -DskipTests' } }
+    stage('Test')      { steps { sh 'mvn test' } post { always { junit '**/target/surefire-reports/*.xml' } } }
+    stage('Sonar')     { steps { withSonarQubeEnv('sonar') { sh 'mvn sonar:sonar' } } }
+    stage('Quality Gate') { steps { timeout(time: 5, unit: 'MINUTES') { waitForQualityGate abortPipeline: true } } }
+    stage('Docker Build & Scan') {
+      steps {
+        sh 'docker build -t $IMAGE .'
+        sh 'trivy image --exit-code 1 --severity CRITICAL $IMAGE'
+      }
+    }
+    stage('Push') {
+      steps {
+        withCredentials([usernamePassword(credentialsId: 'registry-creds',
+                         usernameVariable: 'REG_USER', passwordVariable: 'REG_PASS')]) {
+          sh 'echo "$REG_PASS" | docker login -u "$REG_USER" --password-stdin registry.example.com'
+          sh 'docker push $IMAGE'
+        }
+      }
+    }
+    stage('Deploy Dev')  { steps { sh 'helm upgrade --install app ./chart -n dev --set image.tag=$IMAGE' } }
+    stage('Approval')    { steps { input message: 'Deploy to prod?' } }
+    stage('Deploy Prod') { steps { sh 'helm upgrade --install app ./chart -n prod --set image.tag=$IMAGE --atomic' } }
+  }
+  post { failure { slackSend message: "Build failed: ${env.BUILD_URL}" } }
+}
+
+Q2b. "How do you manage secrets?"
+
+This is where a layered answer scores well. Structure it as store → inject → protect → rotate.
+
+A model answer:
+
+"We never hardcode secrets in the Jenkinsfile, the repo, or the Docker image. There are four layers:
+
+1. Store them properly. Secrets live in the Jenkins Credentials store (encrypted), or better, in an external secrets manager like HashiCorp Vault or AWS Secrets Manager. Credential types include secret text, username/password, SSH keys, secret files and certificates.
+
+2. Inject them only when needed. In the pipeline I use withCredentials (or the credentials() helper in environment), so the secret is available only inside that block as an environment variable. Jenkins masks the value in console output.
+
+3. Restrict who can use them. Credentials are scoped to a folder or job rather than global, and access is controlled with role-based authorization. Developers can use a credential in a pipeline without being able to view it.
+
+4. Rotate and audit. Secrets are rotated regularly, and dynamic short-lived credentials are preferred where possible. For AWS, agents use an IAM role (instance profile or IRSA), so there are no long-lived access keys at all."
+
+Details worth mentioning if they probe:
+
+Groovy string interpolation leak. Use single quotes in sh '... $TOKEN' so the shell expands the variable. With double quotes, Groovy interpolates the secret into the command, which can leak it into logs and process listings.
+Masking isn't perfect. If a secret is transformed (base64, URL-encoded, split), the masked value no longer matches. Avoid set -x, printenv and echo on secrets.
+Vault. Jenkins authenticates with AppRole, fetches secrets at runtime and gets short-lived dynamic credentials, all audited.
+Kubernetes secrets. Kubernetes Secrets are only base64-encoded, so use encryption at rest, External Secrets Operator (pulling from AWS Secrets Manager or Vault), or Sealed Secrets in GitOps flows.
+PRs from forks. Don't expose secrets to untrusted PR builds.
+Secret scanning. Add gitleaks or trufflehog to the pipeline and a pre-commit hook, so leaked secrets are caught early.
+Jenkins itself. Encryption keys sit in $JENKINS_HOME/secrets, so lock down access and backups. Use Configuration as Code (JCasC) with secrets injected from the environment.
+If a secret leaks: revoke and rotate immediately, check audit logs for misuse, and remove it from Git history.
+
+Likely follow-ups to be ready for
+Difference between Declarative and Scripted pipelines? Declarative has a structured, validated syntax that's easier to maintain. Scripted is flexible Groovy.
+How do you make Jenkins scalable? Ephemeral agents (Kubernetes pod agents or Docker), a controller that runs no builds, and parallel stages.
+How do you roll back? Redeploy the previous immutable image tag, helm rollback, or kubectl rollout undo.
+How do you trigger builds? Webhooks from GitHub or GitLab, not polling.
+A build works locally but fails in Jenkins. Why? Environment differences, missing credentials or tools on the agent, workspace state, or different versions.
+
+Follow-up 1: "How do you ensure the secret is only available within a block?"
+
+Use withCredentials. Jenkins binds the credential to an environment variable only for the duration of that closure. When the block ends, the variable no longer exists.
+stage('Call API') {
+  steps {
+    withCredentials([string(credentialsId: 'api-token', variable: 'API_TOKEN')]) {
+      // API_TOKEN exists only here
+      sh 'curl -H "Authorization: Bearer $API_TOKEN" https://api.example.com/deploy'
+    }
+    // Outside the block, API_TOKEN is not defined
+    sh 'echo "Token outside block: ${API_TOKEN:-<not set>}"'
+  }
+}
+
+A spoken answer:
+
+"I wrap only the commands that need the secret inside withCredentials. Jenkins injects it as an environment variable for that block alone and masks it in the console log. 
+Once the block finishes, the variable is gone, so later steps in the same stage or pipeline can't access it. I keep the block as small as possible, so only the specific sh command that needs the secret runs inside it."
+
+Points that make the answer stronger:
+
+Verification: After the block, echo or env shows the variable unset. That's a simple way to demonstrate the scoping.
+File-type credentials: For secret files and SSH keys, Jenkins writes a temporary file and deletes it when the block ends.
+Keep the block tight: Everything inside inherits the variable, including child processes, so don't put unrelated steps in there.
+Don't let it escape: Never write the secret to a file in the workspace, echo it, bake it into a Docker layer (use --password-stdin or BuildKit secrets), or archive it as an artifact. The variable disappears, but anything you wrote out doesn't.
+Access control: Scoping in the pipeline is one layer. Jenkins also scopes credentials by folder or job and by RBAC, so only the right teams can reference that credential ID at all.
+Follow-up 2: "How do you declare it if it's needed globally?"
+
+Declare it in the environment {} block at the top of the pipeline, using the credentials() helper. It's then available in all stages.
+
+pipeline {
+  agent any
+  environment {
+    SONAR_TOKEN = credentials('sonar-token')     // Secret text
+    REGISTRY    = credentials('registry-creds')  // Username/password
+  }
+  stages {
+    stage('Analyze') {
+      steps { sh 'mvn sonar:sonar -Dsonar.login=$SONAR_TOKEN' }
+    }
+    stage('Push') {
+      steps { sh 'echo "$REGISTRY_PSW" | docker login -u "$REGISTRY_USR" --password-stdin' }
+    }
+  }
+}
+
+A spoken answer:
+
+"If most stages need the same secret, I declare it in the pipeline-level environment block with the credentials() helper, referencing the credential ID rather than the value. For something used in one stage, I put the environment block inside that stage. For a single command, I use withCredentials. I pick the narrowest scope that works, because a pipeline-wide secret is visible to every step, including third-party plugins and any printenv."
+
+Comparison
+Scope	How	Use when	Risk
+Narrowest	withCredentials { }	One or two commands need it	Lowest
+Stage	environment {} inside a stage	One stage needs it	Low
+Pipeline-wide	environment {} at top with credentials()	Most stages genuinely need it	Larger blast radius
+A possible trap: "global" in Jenkins vs "global" in the pipeline
+
+"Global" can mean a global-scope credential in Jenkins (Manage Jenkins → Credentials → Global), which is usable by any job. If the interviewer meant that, say:
+
+"Global scope is convenient but broad. I prefer folder-scoped credentials so only the relevant team's jobs can use them, and I never put secrets in Manage Jenkins → System → Global properties → Environment variables, since those are stored as plain text and visible to every job."
+
+That last point is a strong one to include.
+
+If they push further
+Can a developer read the secret through a pipeline? They could print it in a pipeline they control, which is why masking isn't a real security boundary. Restrict who can edit Jenkinsfiles for sensitive jobs (branch protection, code review, protected credentials or separate deploy jobs).
+Better than static secrets? Short-lived dynamic credentials from Vault, or IAM roles for the agents, so there's nothing long-lived to leak.
+
+ 
+ 
+Tata Technologies (Github Action Developement)
+----------------------------------
+Explain your experiace more into Github action design and development, where all you used and worked on it
+ Lets consider we have 200 repo, so how do you dsigna an CICD workflow for that
+ Inorder to authenticate and authorization for 200 repo which you will use whether composit action or resuable workflows
+ 
+
+BNI 
+-------
+Could you please introduce yourself 
+Consider deployment is completed, pods are healthy but users are not able to access the app, how would you resolve and what is your step by step aproach (mentioned health check of targets in LB)
+Consider configured machienes are healthy,all CPU, memory and everything is okay but still users facing slowness, what are the tools you will use to troubleshoot and the steps you follow (mentioned will take ssh to it check processors)
+Lets consider Pod is in Pending state, how would you troubleshoot and what are your approach to debug and resolve the issue
+
+
+what are liveliness and readyness probes
+Have you built an CICD pipeline from scrtch? (I mentioned gitiops menthodology (ArgCD), but answer was not clear to them and stoped asking questions on CICD)
+
+What we need to consider or go ahead whether Opensfhit or Kubernetes? (I mentioned opernshift is built on top of kuberntes, so i would say i worked on kubernetes also)
+Which Infra provisining tool you used on openshift (I mentioned manually provised, not used any tool)
+Have you deployed app on Openshift?
+
+
+Have you worked on Pyhton scripting? 
+Have you created any shell script?, write any shell script(written wrong few lines and that too dockerfile steps as he mentioned, so you have not worked)
+#!bin/bash
+echo "checking out repo"
+sh ' git clone repo url'
+'cd repo=-name'
+'d
+pip install -r re,
+
+
+Have you used Terraform?
+How do you proviosion the infra
+How do you reuse script for creating a multiple resources with diff config like t2micro, t2large(not modules)
+Have you deployed static app on aws? (for Production, not on s3)
+
+How confident you're if you selected (mentioned i can definetly handle all tasks with the help of teamtes and google and will learn quick when there is a new task comes)
+
+You mentioned JFrog
+You worked on GithUb actions? as you mentioned over resume
+You worked on Reative Development(certficate on resume)
+
+feedback
+------------
+You answered what you know for the questions what we asked, but People thing crazy when they look at your CV, you mentioned Reactive web debelopment but dont know shell scripting only 
+(Since i didnt written script, and i messup everything by answering randomly or and there is no proper flow which actually app deployment and hosting not there )
+
+Improve
+------------
+Prepare perfectly all tools
+Prepare one actul real app deployment and it's end to end flow monitoring etc 
+
+Random answer/tools confused them lot, since that what actual Devops team wont use
+
+
+            Southerland
+===============================
+1. Intoduce yourself
+2. Explain the Github Action workflow, what all it conatin and how would you write
+3. Have you worked on Docker, lets cosider i have an code, how will you write and build an image, what all commands?
+4. Have you used terraform, cosider i have .tf file ready and what all the commands you will execute
+5. Have you worked on kubernetes? what is configMap
+6. If you want to restart an pod, how would you will do and what is an command
+7. Have you worked on Azure? have you built Azure pipeline
+8. Have you worked on openshift, is it kuberntes and opensfhite command execution same?
+9. Which source code repo you will use?
+10. Explain the CICD pipelienes stages which you built
+11. which CICD tool you will use
+12. Have you worked on Monitoring, which tools you have used?
+13. on Which cloud you worked
+14. have you worked on Power shell script?
+15. Are you able yo write an shell script?
+16. Have you built an Github CICD pipeline?
+
+
+No feedback
+
+ITC Infotech - Samsung India
+========================================
+Could you please brief yourself, what are your skill sets and what are your day to day activities 
+Have you setup ocp cluster? on which cloud (I said on IBM baremetal)
+Have you setuped a openshift on AWS cloud?
+Which CI tool you will use
+(Few more question just to understand about me on openshift and it matches to our role, i dont have resume with me, so will ask very basic kubernetes questions  )
+
+Lets say pod is in pending state, how you will troubleshoot and what could be the reason
+
+Did you setup standalone kubernetes cluster? (i created ec2 instance on aws and setup kubernetes on that)
+What is Deploymentset and statefulset and why needed? (deploymnet is to deploy app from one env to another env and to deploy new version of app but not able to recall a statefullset)
+What are the different types of storage classes we have on kubernetes (Sorry i am unable to recall)
+what are the different network types we have?, have you herd SR-IOV (No i didnt herd but i know docker networking like brige and overlay) 
+Do you know probes liveness, readyness and other probes, explain those (he laughed because of my answer)
+    - whats the diff in those
+	- who set those ? (laugh)
+	- where you will set that
+	- lets say for our app it needs an 10min to start, so will liveless and readyness probes wait till that?, where do we configure that Delaytime (Sorry i dont know that since i just know those concet but not sure where we need to configure)
+What are the different services we have on kuberntes (load balancer, nodeport and one more iam unabel to recall, services are help us to acess out app externally)
+    - do you mean aws load balancer? (yes)
+	- What is nodeport will be (it help us to access our app externally with node port range 30000 to sometange is there)
+	- How you will communicate within cluster 
+	- How pod communicate each other (with pod Ip)
+	- Does pod Ip will be changes once it restart right so how you will communicate (there is a one more service cluster Ip, it will help to communicate internally with static IP)
+	- oh you're saying pod cluster ip will be static acorss clsuter?(sorry I am not aware)
+What else we have on kubernetes apart from Deployments, storage, Services  (No answer)
+You worked on Github action ?
+Have you worked on Docker
+What else we have on kubernetes
+
+What kind of app you're deploying (web, network app - i said web and it's netwroking app)
+What kind of networking, is it more into network based or storage based (It's multiple connecting each other on the app and sharing the things with each other and its more into storage based as a users data needs to store)
+How many pods you have in your app (it must be come from your experience - i said 6-8)
+
+(Mainly Networking part he focusd on groud level)
+
+feedback
+---------
+We must know about the ground level networking concept, by simply knowing the commands, we cant servive in the industry, as a good engineer he must know about these, even it applies to me as well not only for you we should be well aware about ground level things
+
+
+
+BNI - Second round (F2F)
+================================================
+Could you please introduce yourself
+so you worked on openshift
+Lets consider I have an pod	which is in crashloopbackoff sate what coud be the reason and how will you troubleshoot (mainly it occurs due to request and limit, cpu and memory are exhausted)
+	- oh that is the only reason it could be on crashloopbackoff (no but didnt came across that situation)
+
+Introduce yourself again 
+What is public subnet and private subnet
+what is configMap
+what is finalizer in pod
+Have you setup openshift cluster (yes on IBM baremetal)
+Lets consider a pod is in terminating state, how would you debug this (will check the events and logs and most probably reason could be Storage attched to it PVC)
+	- oh storage issue, will terminating state only happens for this? lets consider we dont have storage issue (sorry i didnt came across this situaion, mainly i encountered imagepullbackoff, pending, crahsloopbacoff)
+Have you aware about Pv and PVC
+	- What is PV and PVC (pv is the storage reserved some amount consider 80Gb etc, but PVC will calim from the PV lets sasy 10GB based on the requirement of the POD)
+	- When the pod delete will the both pv and pvc delete (no only pvc will delete which is claim)
+Have you aware about the taint and tolerations
+    - consider i have a 2 pods one on dev ns and another on io ns, how will you make sure that these pods are not communicate each other (sorry instead of telling wrong things i dont know)
+Have you aware about deployments? have you worked on it 
+		- consider 
+Have you upgraded a OCP clutser? what are the steps you will take (will take a etcd backup and throgh operator will upgrade)
+	- How many mater and worked nodes have in your cluster, like 2 matser, 3 nodes (no its a small app so we have 1 master and 3 worked nodes)
+	- which one will upgrade first master or worked nodes or both at a time (no we will do one after the other but not sure which one sorry)
+Have you worked on EKS, created a clsuster (not much but aware)
+	- is it created throgh terraform or manual (manual)
+	- How many node cluster you created
+What are the types of services we have on kubernest
+Have you created a Load balancer (yes, created it added targetgroups, health checks) (one more question with respect to LB)
+	- What are the lister rules? (dont know)
+	- What are the lister rule we will add (no)
+Have you worked on Terraform, have you created infra using that (yes)
+		- What are the meta arguments on terraform (count, lifecyle, and free, which changes the behaviour )
+		- (few more questions that didnt answred)
+		-
+Have you worked on s3? (not much but i am well aware that we could use the s3 to store the terraform statefile and also it has builtin locking system)
+	- ok, but how about storage, have you not used it, which DB you will use for your app (sorry )
+Have you worked on Azure DevOps (No actually, i had completed an AZ900 certificate, i am well aware about the services but not worked, but i know most of the services are similar and we can easily undertand work)
+Have you woked on Docker (YEs, when i joined i got a chance to work on porting activity)
+	- How you will create an image and what are the commands you will use to build and push
+Which CI tool you will use  (for CI-Jenkins and CD for ArgocD)
+(Deployement realetd question (which aproacha and cost increase))
+
+
+feedback
+------------
+Dont mention the things which you're not well aware on resume, you mentioned azure but didnt worked, so you need to take care that you only add the skills that you are very confident about
+
+
+Improve
+--------------
+Thought of same interviewer comes, so focused on preparing first round questions well, but actually its an complete end to end ineerview with in dept
+If i would have answered well they would have aksed more question on writing an script on sytems
+try to see all aspect while going to interview 
+
+
+Ncircle AI Interview
+================================
+Could you please explain me the 
+
+
+                HCL WalkIn
+============================================
+
+-----Screening round---(Writen test)----
+
+
+AWS CLOUD AND DEVOPS SCENARIO-BASED ASSESSMENT
+AWS Cloud | Terraform | Git | Jenkins | SonarQube | Docker | Kubernetes
+
+INSTRUCTIONS
+- Total questions: 30 | Maximum marks: 100
+- Question types: Single Select (SS), Multiple Select (MS), and Negative Select (NS).
+- For MS questions, select all correct options. Unless your assessment platform applies partial scoring, award marks only when all correct choices and no incorrect choices are selected.
+- For NS questions, select the option that should NOT be followed or is least appropriate.
+- Recommended duration: 75-90 minutes.
+------------------------------------------------------------
+Q1. An application runs on two Amazon EC2 instances in one availability zone. A zonal outage makes it unavailable. Which changes improve resilience?
+Type: MS | Marks: 3
+A. Deploy instances across multiple availability zones
+B. Place the instances behind a Application Load Balancer
+C. Use automatic scaling and health-based replacement
+D. Increase only the operating-system disk size
+E. Configure health checks
+
+Q2. Several engineers manage the same Amazon cloud environment using Terraform. Local state files are creating conflicting updates. What is the best solution?
+Type: SS | Marks: 3
+A. Commit the state file to Git
+B. Use a remote backend with access control and state locking
+C. Keep the state on one engineer's laptop
+D. Copy the state file through email after every change
+
+Q3. Jenkins deploys infrastructure to the cloud. Which credential practice should NOT be used?
+Type: NS | Marks: 3
+A. Use a IAM role for service accounts / EKS Pod Identity or temporary credentials
+B. Apply least-privilege permissions
+C. Hard-code a long-lived secret in the Jenkinsfile
+D. Store any unavoidable secret in an approved credential store
+
+Q4. Compilation and unit tests pass, but the SonarQube Quality Gate fails because of new critical issues. What should the pipeline do?
+Type: SS | Marks: 3
+A. Continue to production because compilation passed
+B. Stop promotion and require remediation
+C. Delete the SonarQube project
+D. Mark the scan as informational for all production branches
+
+Q5. A Docker image is 1.8 GB and takes too long to build and deploy. Which actions should reduce its size?
+Type: MS | Marks: 3
+A. Use a multi-stage build
+B. Use a minimal runtime base image
+C. Add compilers and debugging tools to the final image
+D. Use .dockerignore
+E. Remove build caches and unnecessary packages
+
+Q6. A newly deployed pod remains in Pending state. Which checks are relevant?
+Type: MS | Marks: 3
+A. Review pod events with kubectl describe
+B. Check node CPU and memory capacity
+C. Review node selectors, affinity, taints, and tolerations
+D. Rebuild the Git repository
+E. Check PersistentVolumeClaim binding
+
+Q7. Production needs an urgent fix while the development branch contains incomplete features. What is the safest Git approach?
+Type: SS | Marks: 3
+A. Deploy the development branch
+B. Create a hotfix from the protected production baseline
+C. Edit files directly on the production server
+D. Force-push development to main
+
+Q8. A Kubernetes workload must read objects from one Amazon S3 bucket. What is the most secure authentication design?
+Type: SS | Marks: 3
+A. Store administrator keys in a ConfigMap
+B. Use a dedicated IAM role for service accounts / EKS Pod Identity with least-privilege bucket access
+C. Bake access keys into the Docker image
+D. Make the bucket public
+
+Q9. A firewall or security-group rule was changed manually, creating Terraform drift. Which action should NOT normally be performed?
+Type: NS | Marks: 3
+A. Run terraform plan to identify drift
+B. Decide whether the manual change is approved
+C. Represent the intended configuration in code and apply it through the workflow
+D. Edit the Terraform state file manually without review
+
+Q10. Jenkins checks out the code, but docker build reports that a required file is missing from the build context. What should be checked first?
+Type: SS | Marks: 3
+A. Kubernetes replica count
+B. Dockerfile paths, build context, and .dockerignore
+C. Cloud autoscaling settings
+D. SonarQube user permissions
+
+Q11. A Kubernetes pod reports ImagePullBackOff while pulling from the Amazon ECR. Which checks are appropriate?
+Type: MS | Marks: 3
+A. Verify the image repository and tag
+B. Verify registry authorization
+C. Review pod events
+D. Check registry network and DNS connectivity
+E. Change the Git branching model
+
+Q12. Two engineers modify the same Kubernetes Deployment manifest and Git reports a merge conflict. What should be done?
+Type: SS | Marks: 3
+A. Force-push one developer's branch
+B. Review both intended changes, resolve the conflict, validate the manifest, and commit
+C. Delete the repository history
+D. Modify only the live cluster and ignore Git
+
+Q13. Which practice should NOT be used for production Terraform deployments?
+Type: NS | Marks: 3
+A. Review the saved plan
+B. Restrict apply permissions
+C. Automatically approve every destructive plan
+D. Version-control Terraform configuration
+
+Q14. A pod enters CrashLoopBackOff after deployment. Which initial checks are valid?
+Type: MS | Marks: 3
+A. Review current and previous container logs
+B. Review pod events
+C. Check commands, environment variables, and mounted configuration
+D. Check readiness and liveness probes
+E. Check resource limits and termination reason
+
+Q15. The team must trace a production container image back to the exact source revision. Which tagging strategy is best?
+Type: SS | Marks: 3
+A. Use only latest
+B. Use an immutable tag such as Git commit SHA or release ID
+C. Use the developer's first name
+D. Retag the image manually after deployment
+
+Q16. Which controls reduce accidental changes to the production branch?
+Type: MS | Marks: 3
+A. Protected branch rules
+B. Pull-request review
+C. Automated tests
+D. Required Quality Gate
+E. Unrestricted force-push
+
+Q17. Unit tests execute in Jenkins, but SonarQube shows zero code coverage. What is the best next action?
+Type: SS | Marks: 3
+A. Increase cluster size
+B. Generate the supported coverage report and configure the scanner with its correct path
+C. Delete the .git directory
+D. Increase application replicas
+
+Q18. Which secret-management practice is least appropriate?
+Type: NS | Marks: 3
+A. Restrict access using RBAC or IAM
+B. Use an approved secret-management service
+C. Commit plaintext production passwords to Git
+D. Rotate compromised credentials
+
+Q19. Development, test, and production require similar networks with different CIDR ranges and sizes. What is the preferred Terraform design?
+Type: SS | Marks: 3
+A. Maintain three unrelated manual copies
+B. Use a reusable module with environment-specific validated inputs
+C. Create production manually in the console
+D. Store network values in the Dockerfile
+
+Q20. Build results vary because Jenkins agents have different Terraform and Docker versions and retain files from previous jobs. What is the best correction?
+Type: SS | Marks: 3
+A. Standardize tool versions and use clean, preferably ephemeral agents
+B. Run every job permanently on the Jenkins controller
+C. Remove all version constraints
+D. Replace Jenkins with manual execution
+
+Q21. A new Kubernetes release must be deployed with minimal disruption. Which controls are appropriate?
+Type: MS | Marks: 4
+A. Readiness probes
+B. A controlled rolling or canary strategy
+C. Health and error monitoring during rollout
+D. Rollback to a known-good immutable version
+E. Delete all old pods before creating replacements
+
+Q22. Terraform plan unexpectedly proposes replacement of a critical production database. What should NOT be done?
+Type: NS | Marks: 4
+A. Stop before apply
+B. Review state, configuration, and provider changes
+C. Assess backup and recovery implications
+D. Apply immediately because Terraform generated the plan
+
+Q23. A container works locally but fails in the Amazon EKS. Which differences should be investigated?
+Type: MS | Marks: 4
+A. Environment-specific configuration
+B. Container and Service ports
+C. Secrets and ConfigMaps
+D. External service dependencies
+E. Readiness and liveness probes
+
+Q24. A Jenkins cloud platform credential is suspected to be compromised. Which actions are required?
+Type: MS | Marks: 4
+A. Revoke or rotate it
+B. Review audit and access logs
+C. Determine resources and permissions exposed
+D. Replace it with a least-privilege identity
+E. Continue using it until the next release
+
+Q25. After a release, pods show Running but users receive HTTP 503. Which checks are relevant?
+Type: MS | Marks: 4
+A. Readiness status
+B. Service selectors and endpoints
+C. Ingress or load-balancer backend health
+D. Application logs and listening port
+E. Git repository storage
+
+Q26. A cloud platform credential was accidentally committed to Git. Which actions should be taken?
+Type: MS | Marks: 4
+A. Revoke or rotate it immediately
+B. Remove it from current code and relevant history
+C. Review logs for possible unauthorized use
+D. Enable secret scanning or preventive controls
+E. Only delete the visible line and keep using the credential
+
+Q27. Which controls strengthen a production CI/CD pipeline?
+Type: MS | Marks: 4
+A. Automated unit and integration tests
+B. A blocking SonarQube Quality Gate
+C. Container image scanning
+D. Reviewed Terraform plan
+E. Controlled production approval and post-deployment validation
+
+Q28. A container repeatedly terminates with an out-of-memory reason. What is the best next action?
+Type: SS | Marks: 4
+A. Increase the Git timeout
+B. Review actual memory usage and tune application behavior, requests, and limits
+C. Disable SonarQube
+D. Delete Terraform state
+
+Q29. Which container tagging strategy should NOT be relied upon for production traceability?
+Type: NS | Marks: 4
+A. Immutable semantic version
+B. Git commit SHA
+C. Unique build or release identifier
+D. Only the mutable latest tag
+
+Q30. An end-to-end pipeline follows Git to Jenkins to SonarQube to a container registry to managed Kubernetes. Which stages are appropriate release gates?
+Type: MS | Marks: 4
+A. Controlled checkout from version control
+B. Build and automated tests
+C. Static analysis and Quality Gate
+D. Publish a versioned and scanned image
+E. Controlled deployment, health validation, and rollback readiness
+
+
+
+-----------------------------------Frist-Round--------------------------------
+
+Helm, have you created helm chart? (no i have not created but i used to install app, i have an exposure to create and use)
+Have you worked on openshift (yes)
+Have you written shell script, how do you debug shell script, if there are any issue traces right how do you troubleshoot?
+How do you debug python code, do you know python?
+What kind of shell script you wirrten (i said few logs files cleanup, service health check etc)
+	- have you written a 500 to 2000 line shell script (no only 10-20)
+	- how many shell script you have wirrten in last month
+	- then you have not written shell script, that is not shell script
+You know git, github action?, how do you delete a repo, how do you delete a commit
+You know DOcker, what is the difference between docker and kubernetes
+Have you worked on Github action?
+Have you used kubeadmin command?
+Have you created a kuberntest cluster, how do you add new node to cluster (yes i install kubernetes on EC2 and there is a join command get from master an need to execute on node, so it will join to cluster)
+
+
+-------------------------------------------Second-Round---------------------------------
+oh openshift, have you worked on Openshift?
+Could you please explain me about your day to day activity
+	- What exactly you will do
+How you will Horizontal scaling on OpenShift
+What is the diff between Kubernetes and Openshift
+have you written CICD pipeline?
+	- Please write an Jenkins file (written an incomepelte CI pipeline)
+Have you written any scripting Python (no) else shell (yes)
+	- write an shell script whichever you have written
+	- what is set -euo (e- error exit and other sorry not able to recall)
+	- what are the exit codes like exit 7 what does it mean (sorry i didnt get a chance to use that, i have used only exit 1, to just exit the current execution if something fails)
+What are your day to day activities
+How do you deploy an app on OpenShift
+Have you wokked on terraform, what all resources you have created
+on which cloud are you using currently
+Have you worked on AWS
+Have you created an Kubernetes cluster on AWS
+
+
+
+------ Feedback-------------
+I dont have an postion for openshit, so will refer you
+
+Improve
+-----------------
+Never ever tell about what you're doing currently, since that is not Devops job and you need to explain well with respect to their JD
+
+
+
+
+	
+
+
+
+
+
+
+====My Questions====
+
+what kind or type of EC2 instance you provisioned
+have you automated anything using shell script, have you written any shell script, write any shell script you written
+imp common shell script devops engineer create
+shell script to cleanup logs etc
+
+
+
+ 
+
+
+
+
+
+ 
+ 
+ 
+
