@@ -10,31 +10,36 @@ I'm looking to bring this experience into a role like this one at BNP Paribas, w
 
 
 
-How to find a exit status log of last run shell script (not vm commands - history)
-How to copy a file from one machine to another (scp cmd)
-How to upgrade particular version of an application in /opt folder (git 1.32)
+How to find a exit status log of last run shell script (not vm commands - history)  - $?
+How to copy a file from one machine to another (scp cmd)     scp -i sshkey filepath user@hostanem:path-to-store
+How to upgrade particular version of an application in /opt folder (git 1.32) - 
 If you have git.tar how will you install from that
  How to add a node inside Jenkins UI
-Is there any prerequisits needed before adding node to jenkins
-Is there anything needs to be installed on the attaching node?
-How to add credentials in jenkins
-Tell me 3 different credentials types
-How to use credentials inside pipeline - syntax
+Is there any prerequisits needed before adding node to jenkins -  java
+Is there anything needs to be installed on the attaching node?   - install java
+How to add credentials in jenkins         - manage jenkins> credentials 
+Tell me 3 different credentials types  -  username password, privte key, certificate, username and private ssh key
+How to use credentials inside pipeline - withCredentials (), credentialsId: 
 What is plugins and how do you used inside your pipeline
 What are the basic stages of Deployment declarative pipline
-Have you configured an artifacts
-What are the different repos on jfrog
-What is maven
-What difference build tools you used
-What are different artifacts used
-What is sonarqube and PDM and other code validation tools
+Have you configured an artifacts      - post(artifact -  save the artifact file)
+What are the different repos on jfrog   -  local, remote and virtual 
+What is maven     -  build tools for java (other build tools - gradleant,
+											java - maven, gradle, Ant
+											js -npm, 
+											C/C++ - Make/CMake, 
+											Go - Go tool chain,  
+											pytthon - pip, poetry for packahge management not for build(python no need build))
+What difference build tools you used  - 
+What are different artifacts used  - 
+What is sonarqube and PDM and other code validation tools  - 
 
 Have you worked with source code
 How to build an application and deploy (only docker not kubernetes)
 What are the stages
 Pipeline stages (including secOps)
 Writre a declarative pipeline job to build and publish and application (without docker and kubernetes)
-How to add users/roles/groups in jenkins (how to manage)
+How to add users/roles/groups in jenkins (how to manage) 
 Have you used any plugins? 
 Write a pipeline stage to build docker image and publish 
 How will you deploy application in your project? What are it's stages
@@ -48,12 +53,18 @@ Have you worked on any cloud technology?
 Complete stages of application lifecycle validate code, build, compile, store, deploy including monitoring and etc
 
 Tell about yourself, detailing on which all cloud worked, what type of environments you worked with overall experience you have
-Have you worked on S3?, how to check who has created bucket if there are any bucket or created logs
-If we have multiple instance created, where to see the all activity performed on it
-Where all aws logs will be stored?, lets's say if EC2 instance created and s3 created where we can see those activities. If cloud watch where in it?
+Have you worked on S3?, how to check who has created bucket if there are any bucket or created logs  - aws cloudTrail>Event histry
+If we have multiple instance created, where to see the all activity performed on it - aws cloudTrail>Event histry (if required filter with resource name)
+Where all aws logs will be stored?, lets's say if EC2 instance created and s3 created where we can see those activities. If cloud watch where in it? - aws cloudTrail>Event histry 
+   CloudTrail - ApI/Management logs
+   Cloud Watch - System performace(CPU/memory), applications logs, setup alarms for system threshold
 Have you worked on Terraform
 If we want to create a Terraform modules, you know modules right?, what all things(attributes) needs to mention, in order to make that be reusable by other places
 Have you worked on ansible?
+
+devops ALL=(ALL:ALL) NOPASSWD:ALL
+user host=(user:group) nopasword for any commands  - any user any group, any host can run anything without asking a password
+ 
 What Git branching strategy, and how you will follow to commit for each stage? And how will you commit, build, push and monitor code using each branch
 How you will scale the worker nodes?
 Have you used auto scaling, how will you scale resources(worker nodes)
@@ -474,6 +485,135 @@ feedback
 We must know about the ground level networking concept, by simply knowing the commands, we cant servive in the industry, as a good engineer he must know about these, even it applies to me as well not only for you we should be well aware about ground level things
 
 
+----------------------Second-Round(F2F)----------------------------------
+
+Introduce yourself and the work you're doing
+Have you setup openshift on onpremise server(pysical server) not cloud, Explain each step (sorry i have not installed on on-premise)
+		Then on which server you have installed (IBM Baremetal)
+		Okay, Explain the steps you will follow on that
+				What is Bootstrap machine
+				What is Machine config
+		Consider I have an 3 baremetal infra and you need to setup a cluster on that how you will choose a baremental to setup cluster, will you host on different baremetal or on a same? (in a same baremetal i will do subnet segregation )
+				You will do on a same baremetal? 
+				Then how you will segregate the resources
+		Do you know disconnected Environment? (yes, it is not having an internet connection, we need to mirror the registy and install from there)
+				Coud you please explain how you will setup cluster on that? (sorry i didnt get a chance to work on that, mainly worked on online cluster)
+				Could you pleas explain how you will setup a own registry?, consider our client need an seperate registry to store an artifacts and images they dont want to use public one, how do you setup and where do you setup (sorry i dont know)	
+		Consider you got an requirement and clinet has 3 barementals you need to aks an clinet for the required amount of Hardware, how you will request, will you ask to setup on each baremental or on in a single baremetal you will install (I will request from single baremebatl, the amount of CPU RAM and storage then will segregates Serevr using an subnte range
+				You will do it on one baremetal? (ahh yes)
+				How you will balance the load then? (will make use of Haproxy)
+				What is Haproxy?
+Have you worked on Kubernetes? (yes worked, setuped na standalone and EKS clister)
+		What is EKS and whats the diff bw EKS and standalone?
+		consider pod is in pending state, how do you troubleshoot and what could be the reason? (taint and tolerations, request and limit)
+				its not an resource issue, all clusters having enough resources, then what could be the reason 
+				we have not setup any taint and toleration and affinity also
+				if the pod is pending do you check the logs for the pod? (yes)
+				if the pod is pending we cant check logs, we can check only events by describing, untill pod is not scheduled we cant get the logs
+		consider pod is in crashloopbackoff, how do you check and troubleshoot?
+				even all required resources are available
+				we have not setup and request and limit then?
+		What is request and limit and how do you define?
+				consider we have setup and request and limit like cpu 2 and memoy 100m and i have an cluster which is having an 3 master cluster which is having an more the required amount of resource like cluster 1 16G 8cpu cluster 2 - 48 8 cpu and cluster 3- 16 and 4 cpu then for which node it will schedule (taint, toleration or affinity)
+				we have not configured any taint, toleaation and affinity then (maybe it will assign for the node which is having less pods)
+				releally?
+what is ceph? have you heard this ?	(No)
+What is RDS
+what is DynamoDB and tell me the difference between RDS and DynamoDB
+Have you created a load balancer? (yes)
+			what are the different LB are there?
+			what is the difference between Network LB and Application Load balncer and in which layer these will run (Application LB will use mainly for the web applucation which servers the traffic via HTTP/HTTPS and Nwtwork Load Balancer will used for high performance application which sereves a trffic via TCP/UDP and Application LB works on Layer 4 and Nwtwork LB will work on Layer 7 of OSI model)
+					sorry which layer (Application layer 4 and Network 7)
+					No its vice versa - Application LB - layer 7 and Network LB - Layer 4
+What are the different types of services are there on Kubernetes (cluster IP, Node Port, Load balancer and External Name)
+		Load balancer? (yes will create an LB to split the request across the nodes based on the listining rules and routes, we need to configure the nodes under the target groups)
+		whats the difference between cluster Ip and Node Port? (cluster IP for internal communication, Node port will help to access the app outside the cluster with port range)
+		You will access the app directly outside? (yes with node port service with node port range we will access app outside cluster, like hostname Ip and the port range)
+		Okay, so you will access the app with Pod IP and the port range, which port( that is node port range 30000-32767)
+		where you will define this port (on the service manifest will defin the port like target port(app port), node port(service port) and port(need to check))
+		okay, lets say i have an multiple pods and you will take a IP of a particular pod and with node port like 17.0.0.0:32171 (no actually i will use Node IP or hostname not pod Ip)
+		Okay, Hostaname or Ip whaterver it be with node port you will access right (ahh yes ideally)
+		then why LB (to split the LB accorss all the nodes, actually how we have is, we will create service>Load balancer>Route53 )
+		Okay then how you will the traffic mangement (ingress)
+		what is ingress (to control the incoming traffic we need to create a ingress resource)
+		how you will create and how it configure exactly
+		How you will cretae service (by creting an yaml manifest)
+		Okay, you created service then how it will know which pod to send traffic (will define the label under the service of the pod label, so this service will be cretaed under it)
+		Sorry how (will define the labels under the pod manifest like key value like app=dev, so same label we need to define under the service manifest so it will route accordingly )
+How you will manage the traffic (Route 53, will host/register the domain and create the hosted zones(private- within VPC, public- externl/internet acessible),define the health checkes, crete the routing policies such as weighted, IP based, GeoProximity, Geolocation, sticky session and more)
+Consider all our app facing an huge request and getting slow, what you will do to make app stable and better user experience, how you will ensure high availability (will use autoscling, will define it under LB)
+How you will defne (I will create Autoscaling group with Launch template and it will launch when the request are high and destory when the requests are low but keeping the desired number of ndes )
+How you will decide when you need to create and destroy (i will define a resouce target range like memory usage is more than 70 and cpu utilization some amount it will launch new node based on launch template)
+okay, have you performed any DR (Disaster Recovery) activity (Yes, like we have setuped an DB backup, for RDS it need to take back on evry 4 hours and for QA and Dev its on evry 12 hours and we have also taking an machines snapshots, so if something goes wrong we can restore using these backups)
+Have you hered RPO, RTO (No)
+You have not performed any big production DR activity (no)
+
+
+How you will create a Pod (we can create directly on command line using kubectl command utility also we could defin the yaml manifest file)
+How you will define a request and limits (will define it on spec section like  resource:
+																					limit:
+																						cpu: 2 cpu (need to check, not this much)
+																						memory 512mi
+																					request:
+																						cpu: 1 cpu (need to check, not this much)
+																						memory 100mi
+Do you know probes, what are those and how many probes are there? (startup, liveness and rediness probes)
+		startup probe: It is not using most probably, mainly it was using on old leagcy applications which requries more time to load but in modern applications we dont use since it will boot immediately and this probe will be used to allow some delay to bootup the container and to verify the intial startup only, only once, once startup probe success i.e app started it will handover the monitoring to the rediness and liveness probes
+			 httpget:
+				path: openvsx/apps
+				intialDelaySeconds: 3
+				timeoutSeconds: 10
+			(X	periodSecondsL 30 )   it wont be there on startup probe   
+				timeoutThreshold:
+				failureThreshold: 
+		rediness probe: this probe we will use mainly to check the rediness of the pod, wheather pod is ready to serve the traffic or not
+			httpget:
+				path: openvsx/apps
+				intialDelaySeconds: 3
+				timeoutSeconds: 10
+				periodSecondsL 30
+				timeoutThreshold:
+				failureThreshold: 
+		liveness probe: This probe ensures that pod is working correctly or not, whether it is failed or crahsed
+			httpget:
+				path: openvsx/apps
+				intialDelaySeconds: 3
+				timeoutSeconds: 10
+				periodSecondsL 30
+				timeoutThreshold:
+				failureThreshold: 
+Sorry sorry could you explain the rediness and livness probes
+Okay whats the difference in those (rediness we will use to check with initial rediness where as liveness will be checked continous after some delay)
+okay, how you 
+		
+when we will use and why we will use
+consider if my app need an 
+
+
+	
+																				
+		
+		
+		
+
+	
+
+
+
+
+
+
+
+
+
+-----improve-------
+Need to check Bob baremetal setup docker
+Need to undestand how openshift and kubernetes installation works and how subnets work
+
+
+
+
+
 
 BNI - Second round (F2F)
 ================================================
@@ -792,6 +932,11 @@ You know DOcker, what is the difference between docker and kubernetes
 Have you worked on Github action?
 Have you used kubeadmin command?
 Have you created a kuberntest cluster, how do you add new node to cluster (yes i install kubernetes on EC2 and there is a join command get from master an need to execute on node, so it will join to cluster)
+What is DemonSet, statefulset and Deployment
+what is kubelet and what it will do
+Consider we have an 2 microservices that needs to communicate how do you establish the communication
+what is sidecar, why you will use
+When container stops or exits, what is we need to do if container need to run long without exit 
 
 
 -------------------------------------------Second-Round---------------------------------
@@ -812,6 +957,8 @@ Have you wokked on terraform, what all resources you have created
 on which cloud are you using currently
 Have you worked on AWS
 Have you created an Kubernetes cluster on AWS
+You're an Cluster administrator?
+What is kubelet and what it will do
 
 
 
@@ -824,6 +971,50 @@ Never ever tell about what you're doing currently, since that is not Devops job 
 
 
 
+--------------Azentio-----------------
+========================================================================
+Introduce your self and walk us throught the day to day task you're doing
+Consider Pod is in pending state, what would be the reason and how you will troubleshoot
+Could you please explain the CICD pipeline you built
+		In ArgoCD how you will ensure/mange if you want to deploy the same app in different env (said keep the common yaml manifest file accorss env with defined variabeles, so will pass vakues from values-dev.yaml, values-qa,yaml which are env specific )
+		In ArgoCD consider multiple pipelines are running and updating the repo(CD), and all are making the changes to same repo and they are creating an merge conflict, so how you will handle that on ArgoCD without making any conflict, it should commit sequentially? (locking is there)
+		Consider multiple pipelines are running doing trivy scanning of an image, and there will be a trivy DB right, which will store all  the scanned vulnerability report, so if all pipelines are making a changes at a time, it might to clash/glitch might happen right, so how do you ensure that data should update sequentially without conflict (Locking, need to understand the trivy procedure)
+		consider there are 10 jenkins pipeline which are running, and taking a more time, so how would you troubleshoot and reduce the time
+		How do you handle a secretes in jenkins pipeline
+Consider users are getting an 503 error while accessing an app, how will you trobleshoot and what could be the reason
+Lets say deployment done app is healthy but users are getting an 502 error, what could be the reson and how you will troubleshoot
+Which service you will use for hosting an app (Route 53) (and one LB related question)
+Consider Pod is in crashLoopBackoff state, how will you troubleshoot it
+What are probes, how many are there, how and where you will define
+If i want a pod to assigned to a node not how kubedemon assign, it need to assign it to particular node whiver we needed (taint and toleaation and Node affinity)
+Which ingress you will use (we will use service, LB )
+		you will directly expose the service with LB? there is a some ingress should be present right?(sorry i didnt understand)
+		How will you define the incoming rules, directly we shouldnt allow all right, there should be a some ingress service which one you're using (sorry, it might configured on our app but i am unable to recall that, what i know is we will create a service and LB and Route53, there we will define the routing rules)
+		No, there is ingress controller shoule be there before exposing our app externally like reverse proxy F5, WAF or other
+		(Need to understand the how app exposed and how traffic controlled, what is reverse proxy)
+	
+Which toolsl you used for Monitoring?
+		how do you send the date to grafana
+		Will the prometheus directly get the data from the resources or it need any components? (It needs an exporter, node exporter)
+		How the data/log should be exported(scraping the data) to prometheus from Kuberntes cluster? there is a component which is reposible for the same ( I menioned kubeproxy(that is n/w related), - Kube-state-metrics)
+		(There is a one question related to data locking only - need to understand how the promotheus and grafana works how data export and store will happen)
+How do you store the artifacts from pipeline(in post block will use archive....)
+Explain the dockerfile arguments you have to use while writing an Dockerfile?
+whats the difference between ADD and COPY command
+Explain Multistage dockerfile
+How you will reduce image size
+if we want to specifically mention the dockerfile to be run by other than root user (non root user) then what you will use (USER argument and seems 1001)
+
+
+----feedback----
+No feedback
+
+----improve------
+Need to understand how promethues, grafan or data scraping and storing works 
+Need to check app accessibility outside and how traffic flow works and security best pracices
+check on trivy, security scan data storage from pipeline 
+ArgodCD complete flow and Data locking
+
 
 	
 
@@ -832,7 +1023,7 @@ Never ever tell about what you're doing currently, since that is not Devops job 
 
 
 
-====My Questions====
+
 
 what kind or type of EC2 instance you provisioned
 have you automated anything using shell script, have you written any shell script, write any shell script you written
@@ -840,7 +1031,49 @@ imp common shell script devops engineer create
 shell script to cleanup logs etc
 
 
+#!/bin/bash
+set -euo pipefail
 
+PACKAGE_URL="htpps:/wndwnd"
+PACKAGE_DIR="test-app"
+
+dnf update -y 
+
+yum install python3.12 and oter
+
+git clone $PACKAGE_DIR
+cd 
+git checjout package version
+
+python3.12 -m venv .venv
+
+
+if ! python3.12 -m build; then
+echo "Build failed"
+exit 1
+fi
+
+
+pip install -r requirements/txt
+
+echo "statinga n unit ys"
+
+if ! ./bin/test unit --python3.12 -vvv; then
+	echo "unit test failed"
+	exit 2
+else
+	echo "tets pass"
+fi
+
+
+
+
+if curl --fail --silent --show-error --max-time 5 "$URL" >dev/null ; then
+echo  
+else
+ echo
+ exit 1
+fi
  
 
 
