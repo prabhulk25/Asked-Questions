@@ -23,8 +23,14 @@ How to use credentials inside pipeline - withCredentials (), credentialsId:
 What is plugins and how do you used inside your pipeline
 What are the basic stages of Deployment declarative pipline
 Have you configured an artifacts      - post(artifact -  save the artifact file)
+										post {
+        always {
+            archiveArtifacts artifacts: 'build/libs/**/*.jar', fingerprint: true
+            junit 'build/reports/**/*.xml'
+        }
+    }
 What are the different repos on jfrog   -  local, remote and virtual 
-What is maven     -  build tools for java (other build tools - gradleant,
+What is maven     -  build tools for java (other build tools - gradle ant,
 											java - maven, gradle, Ant
 											js -npm, 
 											C/C++ - Make/CMake, 
@@ -38,8 +44,76 @@ Have you worked with source code
 How to build an application and deploy (only docker not kubernetes)
 What are the stages
 Pipeline stages (including secOps)
-Writre a declarative pipeline job to build and publish and application (without docker and kubernetes)
-How to add users/roles/groups in jenkins (how to manage) 
+Writre a declarative pipeline job to build and publish and application (without docker and kubernetes)\
+
+		pipeline {
+    agent any
+
+    tools {
+        // Change or remove tool definitions depending on your tech stack (e.g., Maven, NodeJS)
+        maven 'Maven-3.8.6'
+    }
+
+    environment {
+        APP_NAME = 'my-java-app'
+        ARTIFACT_ID = "${env.APP_NAME}-${env.BUILD_NUMBER}.jar"
+        // Store your target repository URL and credentials ID in Jenkins Credentials
+        REPO_URL = 'https://company.com'
+        CRED_ID = 'nexus-credentials-id'
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                // Checkout source code from your Git repository
+                checkout scm
+            }
+        }
+
+        stage('Build & Test') {
+            steps {
+                sh 'mvn clean package'
+            }
+        }
+
+        stage('Archive Artifact') {
+            steps {
+                // Save the built artifact locally inside Jenkins workspace
+                archiveArtifacts artifacts: 'target/*.jar', fingerprint: true
+            }
+        }
+
+        stage('Publish Artifact') {
+            steps {
+                withCredentials([usernamePassword(credentialsId: "${env.CRED_ID}", 
+                                                  usernameVariable: 'REPO_USER', 
+                                                  passwordVariable: 'REPO_PASS')]) {
+                    // Publish using curl, mvn deploy, or scp (example using curl for a generic server/repo)
+                    sh """
+                        curl -u \$REPO_USER:\$REPO_PASS \
+                             --upload-file target/${env.APP_NAME}-*.jar \
+                             ${env.REPO_URL}${env.APP_NAME}/${env.BUILD_NUMBER}/${env.ARTIFACT_ID}
+                    """
+                }
+            }
+        }
+    }
+
+    post {
+        success {
+            echo "Pipeline succeeded! Build #${env.BUILD_NUMBER} published."
+        }
+        failure {
+            echo "Pipeline failed on Build #${env.BUILD_NUMBER}."
+        }
+        always {
+            cleanWs()
+        }
+    }
+}
+
+
+How to add users/roles/groups in jenkins (how to manage)  - Role based Authorization strategy
 Have you used any plugins? 
 Write a pipeline stage to build docker image and publish 
 How will you deploy application in your project? What are it's stages
@@ -61,9 +135,15 @@ Where all aws logs will be stored?, lets's say if EC2 instance created and s3 cr
 Have you worked on Terraform
 If we want to create a Terraform modules, you know modules right?, what all things(attributes) needs to mention, in order to make that be reusable by other places
 Have you worked on ansible?
-
-devops ALL=(ALL:ALL) NOPASSWD:ALL
-user host=(user:group) nopasword for any commands  - any user any group, any host can run anything without asking a password
+				Invenstory
+				Addhock command
+				Modules
+				Playbooks
+				Roles
+				vault
+				
+Command :     devops ALL=(ALL:ALL) NOPASSWD:ALL
+Explaination: user host=(user:group) nopasword for any commands  - any user any group, any host can run anything without asking a password
  
 What Git branching strategy, and how you will follow to commit for each stage? And how will you commit, build, push and monitor code using each branch
 How you will scale the worker nodes?
@@ -71,16 +151,186 @@ Have you used auto scaling, how will you scale resources(worker nodes)
 Which load balancer you used
 Diff bw Application load balancer and Network load balancer
 Explain which all services used in AWS like VPC private public, subnet, tc
-How to see the logs of an particular activity, where all logs will be stored on aws
+AWS cloud formation
+		stack  - template to create resource (yaml/json)
+		stack set  - set of stacks can be resused for multiple regions
+		Exports   - output 
+How to see the logs of an particular activity, where all logs will be stored on aws   - cloud tral(api/transaction), cloud watch(app logs)
 On which cluster type you worked, is it Multi cloud infra or single cloud
 Have you worked on different clouds
+
 Have you created any Ingress resources, what ingress controller you created
+			While a Kubernetes Ingress Resource is just a configuration file containing routing rules (like a blueprint), 
+			the Ingress Controller is the actual active daemon running inside the cluster that reads those rules and dynamically forwards traffic to the correct Pods. 
+			It acts as a single, smart "front door" for your microservices, eliminating the need to spin up expensive individual cloud load balancers for every service
+			
+			
+Types of Ingress Controllers
+
+There are dozens of third-party ingress controllers. They generally fall into two main architectural categories:
+
+1. In-Cluster (Open-Source / Proxy-Based)
+
+These run as regular Pods inside your cluster and rely on an underlying open-source reverse proxy software. They typically require a single external network load balancer (Layer 4) to route outside traffic to them.
+• NGINX Ingress Controller: The most popular and officially maintained option by the Kubernetes community.
+• Traefik: A dynamic, cloud-native proxy that automates certificate management and routing natively.
+• HAProxy: Known for high performance, advanced routing algorithms, and security mitigation.
+• Envoy-Based Gateways (Emissary, Contour, Gloo): High-performance proxies geared toward service meshes and modern API gateway architectures.
+
+2. Cloud-Native (Managed Cloud Load Balancers)
+
+These are built by public cloud providers and integrate directly with their proprietary Layer-7 hardware/software load balancers. Instead of running proxy pods inside the cluster, the controller configures the cloud's infrastructure natively.
+• AWS ALB Ingress Controller: Spins up and configures Amazon Application Load Balancers.
+• GCP Ingress (GLBC): Deploys Google Cloud HTTP(S) Load Balancers.
+• Azure AGIC: Links directly to Azure Application Gateway.
+
+How to Create / Deploy an Ingress Setup
+
+Setting up Ingress requires two steps: deploying the controller software, and then applying your routing rules. Below is a standard walkthrough using the community NGINX Ingress Controller.
+
+Step 1: Install the Ingress Controller
+
+The standard way to install a controller is via Helm. Run these commands in your terminal:
+bash
+# Add the official NGINX Ingress repository
+helm repo add ingress-nginx https://github.io
+helm repo update
+
+# Install the controller into its own namespace
+helm install my-ingress ingress-nginx/ingress-nginx \
+  --namespace ingress-nginx \
+  --create-namespace
+Use code with caution.
+This spins up the NGINX proxy pods and provision a public cloud IP address to capture external traffic.
+
+Step 2: Define and Apply Your Ingress Rules
+
+Once the controller is active, you create an Ingress resource YAML to tell the controller where to route web requests.
+Create a file named my-routing.yaml:
+yaml
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: app-ingress
+  annotations:
+    # Tells Kubernetes which controller should process this resource
+    kubernetes.io/ingress.class: "nginx"
+spec:
+  rules:
+  - host: myapp.example.com
+    http:
+      paths:
+      - path: /api
+        pathType: Prefix
+        backend:
+          service:
+            name: api-service
+            port:
+              number: 8080
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: web-frontend-service
+            port:
+              number: 80
+Use code with caution.
+Apply the file to your cluster:
+bash
+kubectl apply -f my-routing.yaml
+Use code with caution.
+How it routes traffic:
+• External requests hitting ://example.com are automatically directed to your internal backend microservice (api-service).
+• All other traffic (://example.com) is funneled directly to your frontend microservice (web-frontend-service).
+
+			
 How a traffic will be moving or how communication happens in cluster with all ingress/egress services
-Will you use/build single docker image across all environment or multiple for each stage
+				
+	Domain name/Ip/Url > Loadbalancer > Ingress controller(rules) > Kubernets service (Internal load balancer, fixed cluster IP within cluster) > healthy Pods (based on label, namespace rueles etc) 			
+				
+1. Ingress Traffic (External → Inside Cluster)
+Ingress manages how external users or internet traffic reach applications inside the cluster.
+• DNS Resolution: A user visits a domain name, which resolves to an external cloud load balancer or IP.
+• Cloud/Node Load Balancer: The request hits the cloud provider' s load balancer (such as AWS ALB or GCP Load Balancer).
+• Ingress Controller: The load balancer hands traffic to an Ingress Controller (like NGINX, Traefik, or Envoy), which reads defined routing rules (hostnames, URI paths, SSL/TLS termination).
+• Kubernetes Service: The Ingress Controller forwards the request to an internal Kubernetes Service. The Service acts as a stable internal load balancer with a fixed ClusterIP and DNS name.
+• Application Pod: The Service load-balances the request across healthy, ephemeral application Pods.
+
+2. East-West Traffic (Pod → Pod Inside Cluster)
+Internal communication between microservices happens over a flat network where every Pod gets a unique IP address.
+• Service Discovery: Pod A wants to talk to Pod B. Instead of hardcoding Pod B's changing IP, Pod A calls Pod B’s Kubernetes Service DNS name.
+• kube-proxy / CNI: The cluster's Container Network Interface (CNI) plugin and kube-proxy route the packet directly to the destination Pod's IP without Network Address Translation (NAT).
+• Network Policies (Microsegmentation): By default, all Pods can talk to each other freely. If Network Policies are active, the cluster inspects pod selectors, namespace selectors, or port rules to allow or block the traffic.
+
+3. Egress Traffic (Inside Cluster → External)
+Egress defines how internal Pods reach outside systems, such as third-party APIs, external databases, or payment gateways.
+• Direct Outbound: By default, Pods can initiate outbound connections straight to the external internet or corporate network.
+• Egress Gateways / Proxies: In hardened clusters, outbound traffic is forced through an Egress Gateway, a forward proxy, or a Network Address Translation (NAT) gateway.
+• Egress Network Policies / Firewalls: Security teams apply egress rules (using CIDR IP blocks or external FQDN allowlists) to prevent unauthorized data exfiltration or restrict which external APIs a Pod can touch.	
+
+
+	
+Will you use/build single docker image across all environment or multiple for each stage  - (Immutable): app:dev-<git-commit-hash> or app:<YYYYMMDD>.<build-number>  avoid  Format: app:staging, app:latest (Mutable)
 What are the changes with respect to each stages branch(dev, qa and prod) on git repo
 Tell me the CICD workflow that you built in your project
+
 How you will improve performance of a Jenkins job
+
+You can improve Jenkins job performance by "offloading execution to agents", "running steps in parallel", and "optimizing caching and triggers".
+1. Offload Execution to Build Agents
+• Move away from the Master Node: Never run heavy build tasks on the Jenkins master/controller node; reserve it purely for scheduling and coordinating.
+• Use Distributed Agents: Run jobs on dedicated static or dynamic cloud/Docker/Kubernetes agents so multiple builds execute independently without resource contention. Learn more about setting up agents via Master Distributed Builds, Agent Scaling & Speed Optimization.
+
+2. Optimize Pipeline and Job Design
+• Run Tasks in Parallel: Use parallel blocks in Jenkins Pipelines to execute independent steps (like multi-platform testing or microservice builds) simultaneously rather than sequentially.
+• Split Long Jobs: Break monolithic, multi-hour jobs into smaller, modular pipeline tasks or downstream jobs.
+• Use Pipelines as Code: Transition from traditional freestyle jobs to declarative or scripted Pipelines stored directly in version control. Review guidelines on Jenkins Best Practices.
+
+3. Implement Caching and Workspace Management
+• Cache Dependencies: Persist and reuse dependency directories (such as node_modules, Maven/Gradle local repositories, or Docker image layers) across builds instead of downloading them from scratch every time.
+• Clean Workspaces Wisely: Avoid full, time-consuming workspace wipes on every run; instead, clean up targeted build artifacts or use shared/persistent volumes where supported.
+• Limit Build History: Retain only a sensible number of past builds and artifacts to prevent disk I/O bottlenecks and excessive disk usage.
+
+4. Tune Triggers and Polling
+• Replace Polling with Webhooks: Stop using heavy Poll SCM cron schedules that constantly hammer your version control system. Switch to push-based Webhooks so jobs trigger immediately only when code actually changes. Watch a breakdown on Mastering Jenkins - Build Triggers.
+• Use H Jitter Syntax: Stagger scheduled jobs using Jenkins H (hash) syntax to prevent scheduled spikes from overwhelming the controller.
+
+5. Audit Controller and JVM Health
+• Uninstall Unused Plugins: Regularly audit and remove old or inactive plugins that add memory overhead and slow down startup times.
+• Upgrade and Tune JVM: Run a modern Long-Term Support (LTS) release of Jenkins, configure proper fixed heap sizes (e.g., using G1GC garbage collection parameters), and back up configuration files cleanly. Explore server tuning tips on Jenkins Performance Best Practices.
+
+
+
 If a conflict happened on cicd, how you will resolve
+				
+Step 1: Identify the Root Cause from Pipeline Logs
+• Check the failure stage: Open your CI/CD dashboard (such as GitHub Actions, GitLab CI, or Jenkins) and review the execution logs to pinpoint whether the failure happened during source control (merge/rebase), build compilation, automated testing, or deployment.
+• Isolate the commit: Look at the latest pull request or commit diff that triggered the run to see which files or dependencies were modified.
+
+Step 2: Resolve Source Code & Merge Conflicts
+If the pipeline fails due to overlapping code changes or merge conflicts:
+• Pull and rebase locally: Fetch the latest target branch (e.g., main or develop) into your local feature branch.bash
+git fetch origin
+git rebase origin/main
+Use code with caution.
+• Fix conflict markers: Open the conflicting files in an editor like VS Code Source Control Docs, review the <<<<<<< HEAD, =======, and >>>>>>> blocks, and manually select or combine the required logic.
+• Stage and continue: Mark the files as resolved and continue or commit the merge:bash
+git add <resolved-file>
+git rebase --continue
+Use code with caution.
+
+Step 3: Address Build and Dependency Conflicts
+If the conflict involves package versions, runtime environments, or build scripts:
+• Lock dependencies: Ensure dependency lock files (such as package-lock.json, yarn.lock, or Pipfile.lock) are synced and committed properly so all pipeline runners use identical package trees.
+• Check environment parity: Verify that local and CI/CD environment variables, Node/Python/Java runtimes, or Docker image tags match. Use containerized builds or Dockerfiles to eliminate "works on my machine" discrepancies.
+• Use automated dependency tools: Integrate automated tools like Dependabot or Renovate to catch and test version clashes in isolation before they hit the main branch.
+
+Step 4: Validate and Re-run
+• Run local pre-commit hooks: Use tools like Husky or local lint/test suites to verify the fix before pushing.
+• Push the fix and monitor: Push your resolved commit to trigger a fresh CI/CD pipeline run and confirm that build, test, and deployment stages turn green.
+• Enforce branch protections: Set up required pull request reviews, status checks, and merge queues in your repository settings to prevent concurrent code collisions in the future.
+		
+
 What is du command
 What is df command
 What is difference between cmd and entrypoint in docker
@@ -487,7 +737,8 @@ We must know about the ground level networking concept, by simply knowing the co
 
 ----------------------Second-Round(F2F)----------------------------------
 
-Introduce yourself and the work you're doing
+How was the first round? (it was not that much good, even i thought i am not gonna select but selected)
+Introduce yourself and walk me through the work you're doing
 Have you setup openshift on onpremise server(pysical server) not cloud, Explain each step (sorry i have not installed on on-premise)
 		Then on which server you have installed (IBM Baremetal)
 		Okay, Explain the steps you will follow on that
@@ -559,35 +810,121 @@ How you will define a request and limits (will define it on spec section like  r
 																						memory 100mi
 Do you know probes, what are those and how many probes are there? (startup, liveness and rediness probes)
 		startup probe: It is not using most probably, mainly it was using on old leagcy applications which requries more time to load but in modern applications we dont use since it will boot immediately and this probe will be used to allow some delay to bootup the container and to verify the intial startup only, only once, once startup probe success i.e app started it will handover the monitoring to the rediness and liveness probes
-			 httpget:
+			 httpGet:
 				path: openvsx/apps
-				intialDelaySeconds: 3
-				timeoutSeconds: 10
-			(X	periodSecondsL 30 )   it wont be there on startup probe   
-				timeoutThreshold:
-				failureThreshold: 
+				port: 8080
+				scheme: HTTP
+			intialDelaySeconds: 30/600
+			timeoutSeconds: 3
+			periodSecondsL 10
+			failureThreshold: 30
+		(X	successThreshold: )   it wont be there on startup probe    
 		rediness probe: this probe we will use mainly to check the rediness of the pod, wheather pod is ready to serve the traffic or not
-			httpget:
+			httpGet:
 				path: openvsx/apps
-				intialDelaySeconds: 3
-				timeoutSeconds: 10
-				periodSecondsL 30
-				timeoutThreshold:
-				failureThreshold: 
+				port: 8080
+				scheme: HTTP
+			intialDelaySeconds: 3
+			timeoutSeconds: 3
+			periodSeconds 10
+			sucessThreshold: 1
+			failureThreshold: 10
 		liveness probe: This probe ensures that pod is working correctly or not, whether it is failed or crahsed
-			httpget:
+			httpGet:
 				path: openvsx/apps
-				intialDelaySeconds: 3
-				timeoutSeconds: 10
-				periodSecondsL 30
-				timeoutThreshold:
-				failureThreshold: 
-Sorry sorry could you explain the rediness and livness probes
-Okay whats the difference in those (rediness we will use to check with initial rediness where as liveness will be checked continous after some delay)
-okay, how you 
-		
-when we will use and why we will use
-consider if my app need an 
+				port: 8080
+				scheme: HTTP
+			intialDelaySeconds: 300
+			timeoutSeconds: 3
+			periodSecondsL 10
+			successThreshold: 1
+			failureThreshold: 30
+	Sorry sorry could you explain the rediness and livness probes
+	Okay whats the difference in those (rediness we will use to check with initial rediness where as liveness will be checked continous after some delay)
+	okay, how you will define and where you will define? (will define under spec section on pod manifest file, will httpGet and port, scheme)
+	What if we app will fail, will directly probe goes on failed? (no we need to setup an timeouts such as initialDelaySeconds, timeoutSeconds, periodSeconds, and in order to mark the failure and sucess we need to define successThreshold and failureThreshold values, after how many tries it mark the probe failed or succeed00)		
+	when we will use and why we will use
+Have you written bash scripting ? (no, i have written a shell scripts to cleanup the log files, check the service health, check service running or not restart if not running, find the error log file on directory )
+	That is for Linux, what about kuberntes or other? (sorry i didnt get)
+	shell script is for linux automation right, for other which scripting you have worked (no i only woked on shell only, i didnt get a chance to work on that but i am having an exposure how we can write, so if i get a chance i can refresh those and wtitten)
+	Ok, where all you have written a shell script (as i mentined earlier i had worked on opensource repo right, so there i got a chance to write buildscript)
+How linux treats a pod? (sorry)
+	consider i am having an pod, i am going to run on linux, how linux treat it as (it's Process)
+		Thats right
+	How you will check the process (top)
+	other than that (ps aux)
+	what are the process priorities, have you seen when list couple of columns will be displayed in that there is a priority column, have you seen that, what are those? (sorry i dont know)
+	do you know awk (yes, we will use that filter the result and split the columns)
+Have you worked on Docker (Yes, as i mentined earlier i had worked on opensource repo right, so there i got a chance to write and build a Docker images from other arch such as x86 to IBM ppc64le )
+	Okay, could you please write a Dockerfile
+	whats the differece between ADD and COPY
+	whats the difference between CMD and ENTRYPOINT (entrypoint is the command which needs to execuet first when the container satrts, such as intializing the directory, running any init scripts where as command is to pass the argument to entry point  )
+	cant we define only on command (command argument can be override) - (kind of  related question )
+	what if we dont want to run the Dockerfile with root user, it needs to run with non root user then (will use USER 1001(userid) argument on Dockerfile)
+Could you please write an shell script, i need to find an .txt file on a folder which are older than some days and delet them (find /folder -name "*.txt" -mtime +7 rm {} \;)
+could you please write an awk command, we list the pod right with kubectl get pods, so i want to display those and get the first and second fields not other (kubectl get pods | awk -d " " -f1,2) --- wrong one
+	
+
+Are you able to create docker file 
+What's the difference between Add and copy, run
+Explain Multistage dockerfile 
+How you will reduce image size
+
+What are the attributes or arguments are there on docker file
+Consider if we want to run a dockerfile with specific user then which argument you will use.  + USER
+
+
+
+
+Consider if you want to run a GitHub action on non root user but not with root user preventrootlogin: false
+
+How linux treat a pod as - process
+How to list process - top and ps -aux
+What is the priority of a process 
+Write awsk command, list the pod with the name and in that choose field first and second - kubectl get pods | awk -d' " -f 1, 2 
+
+How to find a file which of a file txt format and 
+--------++++++++
+
+
+How multiple masters work
+Consider you created a pod, how the workflow would be to the kubernetes cluster
+Does the cluster directly store pod status
+How the request will to controller
+Does api server will 
+Consider I have 3 mater nodes and we were applying an pod, so for which control manger it will go, since all are mater only
+
+How does the communication happens on kubernetes cluster 
+Explain the kubernetes architecture 
+What is etcd
+What data will be stored on etcd
+How multiple cluster info will be stored
+Consider etcd
+Why odd 3 maters only
+
+What is multi tenant, multi cluster (on same bare metal)
+What is libvirt
+What are the Openshift installation types
+What's the difference between upi and ipi
+
+
+Have you worked on ansible? What is it?
+What's the difference between Terraform and ansible 
+
+Cluster network Interface (CNI)
+- SDN - Software defined network 
+OpenshiftSDN
+OVNKubernetes
+
+Have you heard quorum or etcd quorum
+Ignition config file (bootstrap.ign, worker.ign, master.ign)
+Machine config server
+Libvert zone and public zone
+
+Do you know certificates , SSL other types
+Where does the certificate concept comes in on your application hosting 
+
+What is FIPS cluster	
 
 
 	
