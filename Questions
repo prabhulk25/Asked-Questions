@@ -344,6 +344,10 @@ coverself
 ------------------
 Introduce yourself and explain your day to day activities
 what are terraform lifecyle policies, dont want terraform steps - init, validate apply etc
+			create_before_destroy
+			prevent_destroy
+			ignore_changes
+
 what is (tf.heml) (or some help related file) file
 what is helm
 have you worked on azure?
@@ -361,7 +365,30 @@ BCT - BNP Paribas
 -----------------------------------
 Introduce Yourself
 what all the resources you will provision through terraform. > VPC provision is not Devops Engineer role
+
 How do you enable delete on termination of EC2 instance, what is the statement you will write and where do you keep, within resouce block? what is the data type of that and is by default enabled or not?
+				
+In your Terraform aws_instance Resource, add delete_on_termination inside the root_block_device block:
+resource "aws_instance" "example" {
+  ami           = "ami-0c55b159cbfafe1f0"
+  instance_type = "t2.micro"
+
+  root_block_device {
+    delete_on_termination = true
+  }
+}
+• Where it goes: Inside the root_block_device block, which itself is placed inside the main aws_instance resource block.
+
+
+• Data Type: Boolean (bool — accepts true or false).
+
+Is it Enabled by Default?
+
+• Root Volume: Yes. By default in AWS, the root EBS volume is automatically deleted when the EC2 instance is terminated (delete_on_termination = true).
+• Additional / Secondary EBS Volumes: No. Any extra non-root EBS volumes attached during launch have delete_on_termination set to false by default.
+Would you like to know how to change this 
+	
+
 Let say you have 200 EC2 machine and if you want to connect with that with .pem file how you will deploy that .pem file, will you deploy that file for whole 200 server
 How do you manage terraform manifest, (not where you execute, not where you store, i guess where you configure it to automate(git) )
 If we want to upgrade the provider to a different version, the statefile won't allow right, so how do you upgrade on the command line
@@ -1353,7 +1380,166 @@ check on trivy, security scan data storage from pipeline
 ArgodCD complete flow and Data locking
 
 
-	
+--------------------------Coding Mart------------------
+======================================================================	
+You have worked on mostly on IBM cloud right, not on other, could you please tell me more about on which are the thing you worked (no i would say 30% only IBM and remaing on AWS)
+Okay, But i can see most of your projects on IBM only, like Data studio etc
+You handled DevOps part right, from provisioning the infra, CICD and managing those (yes)
+consider an Flipcart application it has multiple of microservices, and recently there had a big billion day right, so could you please explain with similar kind of application, how you need to design the architetcure, before designing what are the things you will asume and how you will decide?
+So mentioned Autscaling right, you will define min and max desired instances, consider min 4 and max 16, and due to request it has alredy 16 machines then what if one of the machine configured was consumed 90% memory, literlly about to burst, how you will troubleshoot and what are the measures you will take to overcome that
+If that is situation application is burst then how you handle that (in that case we can make use of fargate which automatically increases resources and again cost will also increase )
+How is your approch for above situation and what are the measures you will take before that happens (we need to deploy the data accross multiple zones(CDN))
+other than CDN?
+Have you worked on Docker, could you please explain multistage dockerfile, while we need
+Will you do vulnerability scanning of it (yes using trivy)
+	other than that (sonarqube, explained a pipeline)	
+How you will handle secretes on jenkins pipeline
+Have you herd Redish (0h yeag cashe DB, it will store cache and serve the traffic from that)
+How you will handle an Read write action to RDS, by default every user can read and write right, so in application how you will handle that
+You mentioned LB right, consider one of the server it is suddenly increases its memory/cpu utilization like 70 to 80%, how you will troubleshoot that, how you will ensure whether its really an app issue or memory leak (will login to server with ssh and check the memroy useing free -h and check the process, we can see the process which is consuming more memroy, also who started like from which ap it started, if it is really a app isue will check accordingly (wrong answer))
+consider same app it is crashed, what is your DR plan, how you will do (we have DB backup, so we will restore with them)
+Consider users are getting an 502 error, how you will troubleshoot from where you will start (some connectivity issue between app service and  LB, will check Deployment logs and pod logs  (wrong))
+ - I see you will check Deployment and Pod logs (yes)
+Consider the flipcart app, it must be having an multiple micro services, so assume you need to design similar kind of app, how you will design, its microservice based (will keep front end and backend micro service on private subnet and all other resources on public subnet - (incomplete answer) )
+Okay, as you mentioned Load balancer right, how do we handle, then how you will handle the restriction of the users to the app, which tool you will use?
+consider i dont want to allow the access to india (will use DNS service, Route 53, will create route policies IP based geo location etc)
+Okay, what if we want to block a particular user not with his username and password (credentails) but i want to block particular user (i am unable to recall, there must be other policies that might help to block sorry)
+consider one of the Developer by mistakenly he pushed the aws secrete and access key to github, so what happens and what you will do (need to remove that keys first, remove the commited commit and necessary details and check cloudTrain if same key is being used any where for creating an resources)
+You worked on a IAM and security part right? what if i have an user he has n Admin access, so what then what he could do (if he is having an admin acess he could create any resource, since he is below than root (wrong answer))
+You worked on terraform right so what are the resouces you provisioned (EKS, EC2 and more)
+	Okay fine, you might have created those beacause of your Practices
+consider the same app and you're app got crashed, so how soon you will provision an infra and how will restore, whats the SR plan
+have you herd ever abut DR plan, how soon data restore etc
+Consider if i want to send an notifcation to users a text message such as order placed, order packing, out for deliver, how you will do which services you will use and how you will design,
+
+
+------feedback----
+You need to understand architecure and system design, mostly 15-20 system designs were there, within those design acrhitecture will be designed
+Also you need to work on security, you need to understand more into security
+concept wise good but system design and security you need to
+
+---------improve---------
+System design 
+architecture desig
+Disaster recovery and plan
+Terraform usage other than resource creation
+
+
+
+---------------------JFROG----------------------
+=================================================================
+Introduce yourself
+We will conduct the interview on the Practicle mode, you need to create an sshkey and share the public key with us, we will add on our server and you can access the same
+		created a sshkey but habing an space with my laptop username so didnt able to add it to their server
+Lets continue on your machine, please open notepad and we will ask questions and you need to write an answer
+		How to create an sshkey for other users and what to do if name having an space
+
+how do you check the logs of the pods
+	kubetctl get pods
+	kubectl describe pod podname
+	kubectl get logs podname -n namespacename
+What is Load balancer
+what is Replica count
+what is forward proxy and reverse proxy and what are the proxies you are aware
+How to get into the pod 
+
+pass non
+
+How to list the services on kubernetes
+kuebctl get svc -all
+
+How to build an image
+docker built -t test-image:latet -f test-dockerfile .
+
+How to eneter into the container
+docker exec -it contname/id bash
+
+How to enter into the Kubernets pod
+kubectl exec podname (need to check)
+
+How will you run docker images
+docker run -d --name contname image:tag 
+docker run 
+
+Have you worked on terraform? what are the commands you're aware?
+terraform init 
+terraform fmt 
+terraform validate
+terraform plan
+terraform apply 
+
+How to list the docker containers
+docker ps 
+docker ps -a
+
+How to list the docker images
+docker images
+
+How to check the logs in docker ? (need to check answers)
+docker log containername
+docker history 
+
+You know git right? what is git statsh
+git stash 
+git stash pop 
+
+How you will commit in git
+git add .
+git commit -m"new chnge" 
+
+How you will get the branch changes, how you will pull the changes
+git pull branch 
+
+git fetch
+
+Whats the difference between git fetch and git pull
+git push origin 
+
+how to list the services in linux
+systemctl srv-servicename
+
+How you will start, stop, enable, disable the services on linux
+systemctl status servicename
+systemctl is-active servicename
+systemctl stop servicename
+systemctl start servicename
+
+If i have an .sh file, while executing i am getting an file permission issue, how do you troubleshoot and what you will do?
+ls -l
+chmod +x filename
+chmod 644 filename
+
+4 read
+2 write
+1 execute
+
+user group others
+
+How do you check the CPU, memory utilization on linux
+top
+htop
+
+free -h 
+
+How do you check running processes
+ps 
+ps -aux
+
+How do you kill a process/servivce (need to check)
+SIGKILL pid
+
+How do you list the listeinig ports on machine
+lsof
+
+ltp 
+
+How do you kill process
+pkill pid 
+
+I want to grep a prabhu from application.log file
+grep -i  "prabhu" -f application.log  (wrong)
+
+
 
 
 
