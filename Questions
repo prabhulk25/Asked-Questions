@@ -1426,7 +1426,7 @@ Terraform usage other than resource creation
 
 
 
----------------------JFROG----------------------
+---------------------JFROG(First Round)----------------------
 =================================================================
 Introduce yourself
 We will conduct the interview on the Practicle mode, you need to create an sshkey and share the public key with us, we will add on our server and you can access the same
@@ -1538,6 +1538,62 @@ pkill pid
 
 I want to grep a prabhu from application.log file
 grep -i  "prabhu" -f application.log  (wrong)
+
+
+
+=========================
+Beyond Compare - comparing tool
+============================
+
+---------------IMB-----------------------
+==========================================
+Introduce yourself
+What kind of Open source contribution you have made, open an repo and explain me
+	What kind of images those?
+	what is UBI
+	What are the code changes you have made, explain me
+	Which runner you're using
+	How in existing runner you're running 
+You have setuped an Openshift cluster right, how you done that? (Automated jobs were there)
+Which Automation? (Jenkins pipeline to provision a sno and regular ocp)
+Whats your day to day work, what you're doing currently
+What sort of Test you're executing
+Explain the compoenents of OpenShift 
+Whats the difference between Kubernets and OpenShift
+What is the difference between CMD and ENTRYPOINT
+Whats the difference between Container and VM
+Does container has OS?, Base image also having an OS right, then dont it is not having an OS?
+On Openshift what kind of container platform you're using?, have you herd Podman
+Write a shell script list the top 5 processes
+You mentioned enabling power support for images right, explain me what is your approach before porting and how you will do?, what are the pre-requisits?
+Consider on kubernetes i am getting an ImagePullBackOff, how you will troubleshoot and what are the possible causes?
+You mentioned Terraform provisining, what all are you provisioned explain me
+Where do you store statefile
+Consider I want a machine to be created and execuete some shell script within that? (not userdata, initialize.. block, not boot loader thing)
+	How you will provision a Machie, take a ssh and execute a script within that
+	You're saying generic Terms but i want an terraform Techinical term
+Consider Pod is failing, how do you check and troubleshoot?
+Have you aware about AI, since currently AI is resolving around?
+What is the difference between Traditional AI and Agentic AI
+What are Development languages you know, which is core skills
+
+
+
+
+--------------------improve-----------------------
+==================================================
+Prepare yourself to contribute on Opensource projects such as Kubernetes, Power
+Always Take a initiative to help Team, Automate things, help teammates, where all 
+Attend Kubernetes New Contributor Orientation and Contribute
+
+Take a ownership on everything
+Always think like, what you could Automate, and make is easy on everything
+Automate porting Automation 
+
+
+
+
+
 
 
 
